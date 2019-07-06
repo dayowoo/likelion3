@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<!--static 경로 불러오기-->
+{% load static %}
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>Document</title>
+    
+    {% endblock %}
+</head>
+<body>
+{% block nav %}
+    <br><br>
+    <h1>home 화면</h1>
+    <br>
+    <hr>
+    <a href="{% url 'new' %}"><button>글 쓰러가기</button></a>
+    <form action="{% url 'search' %}">
+        <p>검색어 : <input type="text" name="search"/></p>
+        <input type="submit">
+    </form>
+    <br>
+
+    
+    <!--diarys의 글을 순서대로 하나씩 접근해라 접근글을 diary라는 이름으로 다루겠다.-->
+    {% for diary in diarys %}
+    <!--{% for q in qs %}-->
+        {% if diary.image.url is not None %}
+        <img src="{{diary.image.url}}" alt="" width="500px">
+        {% endif %}
+        <h1>{{diary.title}}</h1>
+        <p>{{diary.time}}</p>
+        <p>{{diary.content}}</p>
+        
+        <div>
+            <!--blog.id는 데이터들을 구분하기 위한 pk-->
+            <a href="{% url 'update_page' diary.id %}"><button>수정하기</button></a>
+            <a href="{% url 'delete' diary.id %}"><button>삭제하기</button></a>
+        </div>
+    <hr>
+    <!--{% endfor %}-->
+    {% endfor %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+    
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/blog-post.css' %}" rel="stylesheet">
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+        <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'home' %}>Dayoung's</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'home' %}">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        {% if not user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'create' %}">글쓰기</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'sign_in' %}">로그인</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'sign_up' %}">회원가입</a>
+          </li>
+        {% else %}
+         <li class="nav-item">
+            <div class="nav-link">{{ user.get_username }} 님 환영합니다</div>
+          </li>
+         <li class="nav-item">
+            <a class="nav-link" href="{% url 'create' %}">글쓰기</a>
+          </li>
+          <li class="nav-item">
+            <form action="{% url 'sign_out' %}" method="POST">
+                {% csrf_token %}  
+                <input type="submit" class="nav-link logout" value="로그아웃">
+            </form>          
+          </li>
+        {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% block nav %}
+  {% endblock %}
+</body>
+</html>

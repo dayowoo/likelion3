@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>Document</title>
+    {% endblock %}
+</head>
+<body>
+    {% block nav %}
+    <form action="{% url 'sign_up' %}" method="POST">
+     {% csrf_token %}        
+     유저:<input type="text" name="username"><br>
+        비번:<input type="password" name="pw"><br>
+        비밀번호 확인:<input type="password" name="pw_check"><br>
+        <input type="submit">
+    </form>
+    {% endblock %}
+</body>
+</html>

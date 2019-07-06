@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% block head %}
+    <meta charset="UTF-8">
+    <title>Document</title>
+{% endblock %}
+</head>
+<body>
+{% block nav %}
+    <h1>수정화면</h1>
+    <br>
+<form action="{% url 'update' diary.id %}">
+    <p>
+        제목 : <input type="text" name="title" value="{{diary.title}}">
+    </p>
+    <p>
+        내용 : <textarea name="content" cols="30" rows="10">{{diary.content}}</textarea>
+    </p>
+    <input type="submit" value="글 저장!">
+</form>
+{% endblock %}
+</body>
+</html>
